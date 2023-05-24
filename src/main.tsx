@@ -14,8 +14,10 @@ import { Provider } from 'react-redux';
 import store from './redux/store';
 import Root from './Root';
 import RegisterPage from './pages/RegisterPage';
-import ProfilePage from './pages/ProfilePage';
+import ProfilePage, { loader as userLoader } from './pages/ProfilePage';
 import TestPage from './pages/TestPage';
+import SettingPage from './pages/SettingPage';
+import ModelProperty, { loader as modelLoader }  from './pages/ModelProperty';
 const router = createBrowserRouter([
 {
     path: "/",
@@ -32,14 +34,23 @@ const router = createBrowserRouter([
         element: <App />,
       },
       {
-        path: ":id",
+        path: ":userId",
         element: <ProfilePage/>,
-        errorElement: <ErrorPage />
+        errorElement: <ErrorPage />,
+        loader: userLoader,
       },
       {
         path: "test",
         element: <TestPage />,
       },
+      {
+        path: "setting",
+        element: <SettingPage />,
+      },{
+        path: "property/:productId",
+        element: <ModelProperty />,
+        loader: modelLoader,
+      }
     ],
   },{
     path: "login",
@@ -52,13 +63,11 @@ const router = createBrowserRouter([
   },{
     path: "upload",
     element: <UploadPage />,
-  },
+  }
 ]);
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-  <React.StrictMode>
     <Provider store={store}>
       <RouterProvider router={router} />
     </Provider>
-  </React.StrictMode>,
 )

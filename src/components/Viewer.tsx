@@ -5,7 +5,7 @@ const Viewer = () => {
     const threeRef = useRef<HTMLDivElement | null>(null);
 
     useEffect(() => {
-        // Если объект класса "Three" ещё не создан, то попадаем внутрь
+      console.log(";;;;");
         var scene = new THREE.Scene();
         var camera = new THREE.PerspectiveCamera(
           75,
@@ -24,11 +24,21 @@ const Viewer = () => {
         scene.add(cube);
       
         camera.position.z = 5;
-        threeRef.current
+        var animate = function () {
+          requestAnimationFrame(animate);
+      
+          cube.rotation.x += 0.01;
+          cube.rotation.y += 0.01;
+      
+          renderer.render(scene, camera);
+        };
+      
+        animate();
+
       }, []);
     return ( 
         <>
-            <div className=" h-[500px] w-[600px] bg-slate-300" ref={threeRef} />
+            <div  ref={threeRef} ></div>
         </>          
      );
 }

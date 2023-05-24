@@ -21,13 +21,13 @@ const RegisterPage = () => {
     if (!data.payload) {
       return console.log("Не удалось зарегестрироваться");
     }
-    if ((data.payload as IUser)?.token) {
-      window.localStorage.setItem("token", (data.payload as IUser).token);
+    if ((data.payload as {token:string})) {
+      window.localStorage.setItem("token",(data.payload as {token:string}).token);
     }
   };
 
   if (isAuth) {
-    return <Navigate to="/" />;
+    return <Navigate to="/feed"/>;
   }
   return (
     <div>

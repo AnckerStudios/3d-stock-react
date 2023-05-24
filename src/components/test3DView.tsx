@@ -1,7 +1,8 @@
 import { useEffect } from 'react'
-import { useLoader } from '@react-three/fiber'
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
+import { useLoader, useThree } from '@react-three/fiber'
+import { GLTF, GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import { CameraControls, Wireframe, useFBX, useGLTF, useProgress } from '@react-three/drei'
+import { TextureLoader, sRGBEncoding } from 'three'
 
 interface Test3DViewProps {
     url: string
@@ -9,9 +10,32 @@ interface Test3DViewProps {
 
 function Test3DView({url} : Test3DViewProps) {
     const { progress } = useProgress();
-    
+    const { scene } = useThree();
+    // const texture = useLoader(TextureLoader, "/noimg.png");
+    // texture.encoding = sRGBEncoding;
+    // scene.background = texture;
     // const gltf = useLoader(GLTFLoader,url)
-    const gltf = useLoader(GLTFLoader,"http://localhost:8080/api/model/model")
+    
+    let gltf: GLTF | null = null;
+    try{
+        console.log("dd");
+        
+        gltf = useLoader(GLTFLoader,`http://localhost:8080/api/model/file/${url}`);
+    }catch{
+        console.log("чтото не так");
+        
+    }
+  
+    // useEffect(() => {
+    //     console.log("gltf",gltf);
+    //     try{
+    //         gltf = useLoader(GLTFLoader,`http://localhost:8080/api/model/file`)
+    //     }catch{
+    //         console.log("чтото не так");
+            
+    //     }
+        
+    // }, [])
     // const fbx = useFBX("http://localhost:8080/api/model/model")
     // const gltfLoader = new GLTFLoader();
     useEffect(() => {
@@ -22,18 +46,18 @@ function Test3DView({url} : Test3DViewProps) {
     
     return (
         <>
+        {gltf && <>
+        
             <ambientLight />
             <pointLight position={[10, 10, 10]} />
             <group>
                 <mesh >
-                    {/* <boxGeometry/> */}
                     <primitive object={gltf.scene} /> 
-                    {/* gltf.scene */}
-                    {/* <Wireframe /> */}
                 </mesh>
                 
             </group>
             <CameraControls />
+        </>}
         </>
     )
 }

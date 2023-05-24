@@ -7,12 +7,13 @@ import {
   useState,
 } from "react";
 import { IProduct } from "../models/product";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { Html, Loader, useGLTF, useProgress } from "@react-three/drei";
 import { Canvas, useLoader } from "@react-three/fiber";
 import { LoadingScreen } from "../components/LoadingScreen";
 import Test3DView from "../components/test3DView";
-import axios from "axios";
+import axios from "../axios";
+
 
 interface LoadingScreenProps {
   started: boolean;
@@ -21,7 +22,8 @@ interface LoadingScreenProps {
 
 export const UploadPage = () => {
   const [fileList, setFileList] = useState<FileList>();
-  const [fileDataURL, setFileDataURL] = useState<string>();
+  const [model, setModel] = useState<string>();
+  const [nav, setNav] = useState<string>('');
   const inputRef = useRef<HTMLInputElement | null>(null);
   useEffect(() => {
    console.log(fileList);
@@ -35,18 +37,30 @@ export const UploadPage = () => {
   // reader.readAsDataURL(file);
   function click() {
     let formData = new FormData();
-    for (let i = 0; i < fileList!.length; i++) {
-      formData.append(
-        "model",
-        new Blob([JSON.stringify(fileList?.item(i))]),
-        fileList?.item(i)?.name
-      );
+    if(!fileList?.length) {
+      console.log("gg");
+      
+      return;
     }
+    formData.append(
+      "model",
+      fileList[0],
+      fileList[0].name
+    );
+    // for (let i = 0; i < fileList!.length; i++) {
+    //   formData.append(
+    //     "model",
+    //     fileList!.item(i)!,
+    //     fileList!.item(i)!.name
+    //   );
+    // }
 
     console.log("formData", formData.get("model"));
 
     axios.post("http://localhost:8080/api/model", formData).then((res) => {
       console.log("requst", res);
+      setNav((res.data as IProduct).id);
+      // return <Navigate to={`/property/${(res.data as IProduct).id}`}/>
     });
   }
   const files = fileList ? [...fileList] : [];
@@ -116,6 +130,7 @@ export const UploadPage = () => {
         <button className="w-40 p-2 px-4 rounded-lg bg-indigo-300 text-white" onClick={() => click()}>
             Загрузить
         </button>
+        {nav && <Navigate to={`/property/${nav}`}/>}
       </div>
       {/* <div className="absolute w-screen h-screen top-0 left-0 bg-black/50 z-30">
         <div className=" w-[500px]  bg-white rounded-xl mx-auto mt-40 p-4 shadow">
