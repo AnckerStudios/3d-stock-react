@@ -4,7 +4,9 @@ import { IProduct } from "./models/product";
 import { Canvas } from "@react-three/fiber";
 import Test3DView from "./components/test3DView";
 import { Environment, Loader } from "@react-three/drei";
-import { getAllModels } from "./data/models";
+import { categories, getAllModels } from "./data/models";
+import MiniSelect from "./components/MiniSelect";
+import Ssd from "./components/ssd";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -21,15 +23,7 @@ function App() {
     <>
       <div className="  w-full p-3 bg-indigo-200">
         <div className="max-w-7xl mx-auto flex gap-8">
-          <div className="flex flex-col">
-            <p className=" text-xs text-white">КАТЕГОРИЯ</p>
-            <div className=" text-indigo-500 flex items-center font-bold">
-              Все категории
-              <span className="material-symbols-rounded font-bold">
-                expand_more
-              </span>
-            </div>
-          </div>
+          <MiniSelect title={'Категория'} options={categories}/>
           <div className="flex flex-col">
             <p className=" text-xs text-white">ДАТА</p>
             <div className=" text-indigo-500 flex items-center font-bold">
@@ -53,10 +47,22 @@ function App() {
       <div className=" max-w-7xl mx-auto ">
         <p className="my-4 text-2xl font-light">СПИСОК МОДЕЛЕЙ</p>
         <div className=" grid grid-cols-3 gap-1">
-          {arr.length ? arr.map((item, index) => (
-            <ProductItem key={index} product={item} statusView={false}/>
-          )) : <p>Пока нет моделей</p>}
-          
+          {arr.length ? arr.map((item, index) => ( 
+            item.name !== 'lamp' && <ProductItem key={index} product={item} statusView={false}/>
+          )) : 
+          <p>Пока нет моделей</p>
+          }
+          {/* <Ssd/>
+          <Ssd/>
+          <Ssd/>
+          <Ssd/>
+          <Ssd/>
+          <Ssd/>
+          <Ssd/>
+          <Ssd/>
+          <Ssd/>
+          <Ssd/>
+          <Ssd/> */}
         </div>
       </div>
     </>

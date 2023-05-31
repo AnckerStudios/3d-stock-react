@@ -104,7 +104,10 @@ const ModelProperty = () => {
               ads_click
             </span>
           </div>
-
+          <p className=" text-xl font-light">Категория модели</p>
+          <select className=" w-full rounded-lg bg-transparent font-bold border border-indigo-500 p-2 text-indigo-500" defaultValue={1}>
+            <option value={1} selected={false}>Выберите категорию</option>
+          </select>
           <div className="  flex flex-col gap-2">
             <p className=" text-xl font-light">Информация о модели</p>
             <div className="pt-1 pb-3 border-b flex justify-between">
@@ -168,12 +171,12 @@ const ModelProperty = () => {
               <input
                 type="number"
                 {...register("polygonCount")}
-                className=" bg-transparent rounded-md border w-24"
+                className=" bg-transparent rounded-md border w-24 text-end text-lg"
               />
             </div>
             <div className="pt-1 pb-3 flex justify-between">
               <p className=" text-lg">Размер файла</p>
-              <p className=" text-lg">{watch("size")}</p>
+              <p className=" text-lg">{(watch("size")/(1024*1024)).toFixed(1)} Мб</p>
             </div>
           </div>
           <button className=" bg-indigo-400 rounded-md px-6 py-2 text-white font-bold">
@@ -194,6 +197,7 @@ const ModelProperty = () => {
                 attach="background"
                 args={[watch("background") as ColorRepresentation]}
               />
+              
               <Suspense fallback={null}>
                 {model && <Test3DView url={model.id} />}
               </Suspense>
@@ -227,7 +231,7 @@ const ModelProperty = () => {
               />
             </div>
             <div className="flex flex-col gap-2">
-              <p className=" font-light text-xl ">Цена</p>
+              <p className=" font-light text-xl ">Цена в ₽</p>
               <input
                 className="border rounded-lg p-2 px-4 w-full"
                 {...register("price", { required: "Укажите логин" })}

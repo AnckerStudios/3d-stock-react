@@ -16,17 +16,18 @@ const Header = () => {
     dispatch(logout());
   };
   const onAddBalance = () => {
-    axios
-      .get("http://localhost:8080/api/user/addBalance")
-      .then((res) => {
-        console.log("requst", res);
-        dispatch(setBalance(res.data));
-      });
+    axios.get("http://localhost:8080/api/user/addBalance").then((res) => {
+      console.log("requst", res);
+      dispatch(setBalance(res.data));
+    });
   };
   return (
     <div className=" sticky top-0 z-20 w-full h-16 p-3 bg-indigo-400 flex border-b border-white justify-between items-center">
-      <Link to={"/feed"}>
-        <p className=" text-white font-bold text-xl"> 3D STOCk</p>
+      <Link to={"/feed"} className="flex  items-center">
+      
+      <span className="material-symbols-rounded text-white font-bold text-5xl">deployed_code</span>
+      <p className=" text-white font-bold text-xl">3D</p>
+        <p className=" text-white  text-xl">STOCk</p>
       </Link>
       <div className="h-full border rounded-lg border-indigo-200 bg-indigo-300 flex item-center ">
         <span className="material-symbols-rounded p-2 border-r border-indigo-200 text-white">
@@ -47,12 +48,20 @@ const Header = () => {
         {user && (
           <div className="flex items-center gap-2">
             {user.role == "MODER" && (
-              <Link
-                className="py-2 px-4 bg-white rounded-lg text-indigo-500 font-bold"
-                to={`/upload`}
-              >
-                ПРОВЕРИТЬ
-              </Link>
+              <>
+                <Link
+                  className="py-2 px-4 bg-white rounded-lg text-indigo-500 font-bold"
+                  to={`/category`}
+                >
+                  КАТЕГОРИИ
+                </Link>
+                <Link
+                  className="py-2 px-4 bg-white rounded-lg text-indigo-500 font-bold"
+                  to={`/check`}
+                >
+                  ПРОВЕРИТЬ
+                </Link>
+              </>
             )}
             <Link
               className="py-2 px-4 bg-white rounded-lg text-indigo-500 font-bold"
@@ -64,7 +73,7 @@ const Header = () => {
               <Link to={`/${user.email}`}>
                 <img
                   src={user.img ?? "noimg.png"}
-                  className="absolute z-50 rounded-full h-10 top-0 right-0"
+                  className="absolute z-50 rounded-full h-10 top-0 right-0 object-cover"
                 />
               </Link>
               <div className=" invisible  w-48 absolute -top-2 -right-2 group-hover:visible bg-white p-2  rounded-md border shadow">
@@ -81,18 +90,40 @@ const Header = () => {
                   <p className=" text-xs text-indigo-500">Мой баланс:</p>
                   <div className="flex justify-between">
                     <p className="">{user.balance ?? "0"} ₽</p>
-                    
-                      <span className="material-symbols-rounded text-white font-bold select-none cursor-pointer bg-indigo-300 rounded-md " onClick={onAddBalance}>add</span>
-                    
+
+                    <span
+                      className="material-symbols-rounded text-white font-bold select-none cursor-pointer bg-indigo-300 rounded-md "
+                      onClick={onAddBalance}
+                    >
+                      add
+                    </span>
                   </div>
                 </div>
                 <div className="my-2 px-1 border w-full"></div>
+                {user.role == "MODER" && (
+                  <>
+                    <Link
+                      className="flex items-center gap-2 px-1 select-none hover:text-indigo-500"
+                      to={`/category`}
+                    >
+                      Категории
+                    </Link>
+                    <Link
+                      className="flex items-center gap-2 px-1 select-none hover:text-indigo-500"
+                      to={`/upload`}
+                    >
+                      Проверить
+                    </Link>
+                    <div className="my-2 px-1 border w-full"></div>
+                  </>
+                )}
                 <Link
                   to={"/setting"}
                   className="flex items-center gap-2 px-1 select-none hover:text-indigo-500"
                 >
                   <p>Настройки</p>
                 </Link>
+
                 <Link
                   to={"/upload"}
                   className="flex items-center gap-2 px-1 select-none hover:text-indigo-500"

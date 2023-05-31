@@ -109,7 +109,7 @@ const SettingPage = () => {
             <div className="flex gap-4">
               <img
                 src={image ?? user?.img ?? 'noimg.png'}
-                className=" rounded-md w-40"
+                className=" rounded-md w-40 h-40 object-cover"
               />
               <div>
               <input
@@ -146,10 +146,10 @@ const SettingPage = () => {
           {errors.lastname?.message}
           <button
             type="submit"
-            className="p-2 px-4 bg-slate-300 rounded-md"
+            className="p-2 px-4 bg-indigo-300 rounded-md"
             
           >
-            SAVE
+            Сохранить
           </button>
         </form>
 

@@ -4,6 +4,7 @@ import { fetchUser, selectIsAuth } from "../redux/slices/auth";
 import { IUser, Inputs } from "../models/user";
 import { useAppDispatch } from "../redux/store";
 import { Link, Navigate } from "react-router-dom";
+import { useState } from "react";
 
 const LoginPage = () => {
   const {
@@ -14,6 +15,7 @@ const LoginPage = () => {
   } = useForm<Inputs>();
   const isAuth = useSelector(selectIsAuth);
   const dispatch = useAppDispatch();
+  const [err, setErr] = useState<boolean>(false)
   const onSubmit: SubmitHandler<Inputs> = async (inputs) => {
     const data = await dispatch(fetchUser(inputs));
     if (!data.payload) {

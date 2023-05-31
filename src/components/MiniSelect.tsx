@@ -14,9 +14,9 @@ const MiniSelect = ({ title, options }: MSProps) => {
   return (
     <div className="flex flex-col relative w-44 h-8">
       <div className=" absolute z-30 w-44 select-none">
-        <p className=" text-xs ">{title.toUpperCase()}</p>
+        <p className=" text-xs text-white">{title.toUpperCase()}</p>
         <div
-          className=" text-indigo-500 flex items-center font-bold relative cursor-pointer"
+          className=" text-indigo-500 flex items-center font-bold relative cursor-pointer "
           onClick={() => setOpen(!isOpen)}
         >
           {select.name}

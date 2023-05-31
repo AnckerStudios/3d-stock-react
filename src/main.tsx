@@ -18,6 +18,10 @@ import ProfilePage, { loader as userLoader } from './pages/ProfilePage';
 import TestPage from './pages/TestPage';
 import SettingPage from './pages/SettingPage';
 import ModelProperty, { loader as modelLoader }  from './pages/ModelProperty';
+import CategoryPage  from './pages/CategoryPage';
+import CheckPage from './pages/CheckPage';
+import TestProductPage, { loader as testModelLoader }  from './pages/TestProductPage';
+import BuyPage from './pages/BuyPage';
 const router = createBrowserRouter([
 {
     path: "/",
@@ -50,6 +54,19 @@ const router = createBrowserRouter([
         path: "property/:productId",
         element: <ModelProperty />,
         loader: modelLoader,
+      },{
+        path: "category",
+        element: <CategoryPage />
+      },{
+        path: "check",
+        element: <CheckPage />
+      },{
+        path: "buy",
+        element: <BuyPage />
+      },{
+        path: "testProduct/:productId",
+        element: <TestProductPage />,
+        loader: testModelLoader,
       }
     ],
   },{

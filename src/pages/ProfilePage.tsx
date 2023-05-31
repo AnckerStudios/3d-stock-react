@@ -7,6 +7,7 @@ import { getUser } from "../redux/slices/auth";
 import { Link, useLoaderData } from "react-router-dom";
 import { IUser } from "../models/user";
 import MiniSelect from "../components/MiniSelect";
+import Ssd from "../components/ssd";
 
 export async function loader({ params }: any) {
   console.log("jjj", params);
@@ -87,7 +88,7 @@ const ProfilePage = () => {
           <div className="w-40">
             <img
               src={profile.img ?? '/noimg.png'}
-              className=" rounded-md w-full"
+              className=" rounded-md w-40 h-40  object-cover" 
             />
           </div>
           <div className=" flex-grow">
@@ -95,12 +96,18 @@ const ProfilePage = () => {
             <p className=" text-3xl font-bold  text-indigo-600">
               {profile.firstname} {profile.lastname}
             </p>
+            <p className=" text-2xl pt-2">Моделей: {arr.length}</p>
           </div>
 
           {user?.email === profile.email && <div className=" ">
-            <Link to={'/setting'} className="bg-white px-6 py-2 rounded-md text-indigo-400 font-bold text-2xl">
+            <div className="flex flex-col justify-between h-full items-end">
+            <Link to={'/setting'} className="bg-white px-6 py-2 rounded-md text-indigo-400 font-bold text-xl">
               РЕДАКТИРОВАТЬ
             </Link>
+            <Link to={'/buy'} className="text-xl text-indigo-500">
+              {'Приобретенные модели'}
+            </Link>
+            </div>
           </div>}
         </div>
       </div>
@@ -116,6 +123,12 @@ const ProfilePage = () => {
             {arr.length ? arr.map((item, index) => (
               <ProductItem key={index} product={item} statusView={user?.email === profile.email}/>
             )) : <p>Моделй пока нет</p>}
+            {/* <Ssd/>
+            <Ssd/>
+            <Ssd/>
+            <Ssd/>
+            <Ssd/> */}
+
           </div>
         </div>
       </div>

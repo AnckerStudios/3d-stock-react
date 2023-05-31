@@ -8,19 +8,12 @@ interface ProductProps {
 }
 
 function ProductItem({ product, statusView }: ProductProps) {
-  const [load, setLoad] = useState(false);
-  async function fetchFullImg() {}
-
-  function loadFullImg() {}
-
   return (
     <div
-      // to={`/product/${product.id}`}
       className=" aspect-video rounded-md relative group cursor-pointer hover:scale-110 hover:z-10 hover:shadow-2xl transition"
-      onMouseEnter={loadFullImg}
     >
       <Link
-        to={statusView ? `/property/${product.id}` : `/product/${product.id}`}
+        to={statusView ? `/property/${product.id}` : `/testProduct/${product.id}`}
         className="transition ease-in-out delay-150 duration-300 absolute w-full h-full bg-gradient-to-t from-indigo-500 to-transparent to-40% hidden flex-col justify-end rounded-md group-hover:flex"
       >
         <div className="p-2 text-3xl font-bold text-white">{product.name ?? 'БЕЗЫМЯННЫЙ ПРОЕКТ'}</div>
@@ -31,10 +24,7 @@ function ProductItem({ product, statusView }: ProductProps) {
         </div>
         <img
           src={product.user.img ?? "noimg.png"}
-          className="rounded-full h-full bg-white"
-          onClick={() => {
-            return <Navigate to={"/anckerstudios"} />;
-          }}
+          className="rounded-full h-8 w-8 bg-white object-cover "
         />
         
       </Link>
@@ -45,7 +35,7 @@ function ProductItem({ product, statusView }: ProductProps) {
         <>
           <div className={`absolute top-1 left-1 px-4 rounded  ${
               product.status === "valid"
-                ? "bg-green-600"
+                ? "bg-lime-500"
                 : product.status === "invalid"
                 ? "bg-red-600"
                 : product.status === "draft"
@@ -60,28 +50,6 @@ function ProductItem({ product, statusView }: ProductProps) {
               ? "ЧЕРНОВИК"
               : "ЖДЕМ"}
           </div>
-          {/* <span className="absolute top-0 left-0 material-symbols-rounded font-bold text-white text-5xl">
-            {product.status === "valid"
-              ? "deployed_code"
-              : product.status === "invalid"
-              ? "deployed_code_alert"
-              : "deployed_code_history"}
-          </span>
-          <span
-            className={`absolute top-0 left-0 material-symbols-rounded ${
-              product.status === "valid"
-                ? "text-green-600"
-                : product.status === "invalid"
-                ? "text-red-600"
-                : " text-orange-400"
-            } text-5xl`}
-          >
-            {product.status === "valid"
-              ? "deployed_code"
-              : product.status === "invalid"
-              ? "deployed_code_alert"
-              : "deployed_code_history"}
-          </span> */}
         </>
       )}
     </div>

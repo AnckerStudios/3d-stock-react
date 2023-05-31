@@ -33,15 +33,15 @@ const RegisterPage = () => {
     <div>
     <form
       onSubmit={handleSubmit(onSubmit)} 
-      className=" flex flex-col gap-4 rounded-xl border w-[500px] mx-auto mt-20 p-4"
+      className=" flex flex-col gap-4 rounded-xl border w-[500px] mx-auto mt-20 p-4 bg-white"
     >
       <p className="text-center font-light text-3xl">Регистрация</p>
       <div className="flex flex-col gap-2">
-        <p className=" font-light text-xl ">Почта</p>
+        <p className=" font-light text-xl ">Логин</p>
         <input
           className="border rounded-lg p-2 px-4 w-full"
-          {...register("email", { required: "Укажите E-mail" })}
-          placeholder="E-mail"
+          {...register("email", { required: "Укажите Логин" })}
+          placeholder="Логин"
         />
       </div>
       {errors.email?.message}

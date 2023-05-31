@@ -21,3 +21,16 @@ export interface IOption {
     name: string;
     action: Function;
   }
+
+export interface IComment{
+    id: string,
+    user: IUser,
+    text: string,
+    date: string
+}
+
+export interface ICategory{
+    id?: string,
+    name: string,
+    count: number
+}

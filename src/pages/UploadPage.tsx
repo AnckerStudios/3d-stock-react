@@ -109,11 +109,12 @@ export const UploadPage = () => {
 
       <div className=" max-w-2xl mx-auto pt-10 flex flex-col gap-8">
         <p className=" font-light text-4xl text-indigo-500  text-center">Загрузите новую модель</p>
-        <div className="aspect-video relative border-4 border-dashed border-indigo-500 rounded-lg" onClick={()=>inputRef.current?.click()}>
+        <div className="aspect-video relative p-2 border-4 border-dashed border-indigo-500 rounded-lg flex flex-col items-center gap-4" onClick={()=>inputRef.current?.click()}>
+          <p className=" text-2xl font-light ">Прикрепленные файлы :</p>
         <ul>
         {files.map((file, i) => (
-          <li key={i}>
-            {file.name} - {file.type}
+          <li key={i} className="text-xl font-bold text-white bg-indigo-400 rounded-md px-4 py-1">
+            {file.name}
           </li>
         ))}
       </ul>
@@ -127,9 +128,15 @@ export const UploadPage = () => {
             setFileList(e.target.files!);
           }}
         />
-        <button className="w-40 p-2 px-4 rounded-lg bg-indigo-300 text-white" onClick={() => click()}>
+        <div className=" flex justify-between">
+        <Link to={'/feed'} className="w-40 p-2 px-4 rounded-lg bg-gray-300 font-bold text-center">
+            Отмена
+        </Link>
+        <button className="w-40 p-2 px-4 rounded-lg bg-indigo-400 text-white font-bold" onClick={() => click()}>
             Загрузить
         </button>
+        </div>
+        
         {nav && <Navigate to={`/property/${nav}`}/>}
       </div>
       {/* <div className="absolute w-screen h-screen top-0 left-0 bg-black/50 z-30">
